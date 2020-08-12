@@ -4,10 +4,10 @@
 #########################################################################################################################################################
 
 dataframe <- read.csv("/Users/aayushpatel/Desktop/DATAIneedtouse.csv", header = TRUE)
-
+IPAQ <- function(dataframe)
 finalscore<- c()
   for(i in 1:length(dataframe$IPAQ_1)) {
-    if(dataframe$IPAQ_1[i] ==1 & dataframe$IPAQ_2 ==1){
+    if(dataframe$IPAQ_1[i] ==1 & dataframe$IPAQ_2[i] ==1){
       vigorous_activity <- dataframe$IPAQ_1_1_TEXT[i] * dataframe$IPAQ_2_1_TEXT[i] * 8
     } else {
       vigorous_activity <- 0
