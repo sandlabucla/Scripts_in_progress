@@ -2,34 +2,19 @@
 # International Physical Activity Questionnaire (IPAQ) scoring
 # Created by Aayush Patel
 #########################################################################################################################################################
+#this package must be installed
+install.packages(matrixStats)
+library(matrixStats)
 
-dataframe <- read.csv("/Users/aayushpatel/Desktop/DATAIneedtouse.csv", header = TRUE)
+dataframe <- read.csv("/Users/aayushpatel/Desktop/SB_wave2_All_ages_Block2_UpdatedCLEANFAKEDATA.csv", header = TRUE)
 IPAQ <- function(dataframe)
-finalscore<- c()
-  for(i in 1:length(dataframe$IPAQ_1)) {
-    if(dataframe$IPAQ_1[i] ==1 & dataframe$IPAQ_2[i] ==1){
-      vigorous_activity <- dataframe$IPAQ_1_1_TEXT[i] * dataframe$IPAQ_2_1_TEXT[i] * 8
-    } else {
-      vigorous_activity <- 0
-    }
-    
-    if(dataframe$IPAQ_3[i] ==1 & dataframe$IPAQ_4[i] ==1){
-      moderate_activity <- dataframe$IPAQ_3_1_TEXT[i] * dataframe$IPAQ_4_1_TEXT[i] * 4
-    } else {
-      moderate_activity <- 0
-    }
-    
-    if(dataframe$IPAQ_5[i] ==1 & dataframe$IPAQ_6[i] ==1){
-      walking_activity <- dataframe$IPAQ_5_1_TEXT[i] * dataframe$IPAQ_6_1_TEXT[i] * 3.3
-    } else {
-      walking_activity <-0
-    }
-    totalscore = vigorous_activity + moderate_activity + walking_activity
-    finalscore = append(finalscore, totalscore)
-  }
-
-finalscore
-
-
-
+#calculates the score for vigorous activity for each individual by multiplying days per week, minutes per day, and MET constant of 8; omitted if all of the data is not given
+dataframe$IPAQ_score_vigorous <- ifelse(dataframe$IPAQ_1==0, dataframe$IPAQ_score_vigorous <- 0, dataframe$IPAQ_score_vigorous <- rowProds(as.matrix(cbind(dataframe[,paste("IPAQ", c(1,2), "1_TEXT", sep = "_")],8)),na.rm =F))
+#calculates the score for moderate activity for each individual by multiplying days per week, minutes per day, and MET constant of 4; omitted if all of the data is not given
+dataframe$IPAQ_score_moderate <- ifelse(dataframe$IPAQ_3==0, dataframe$IPAQ_score_moderate <- 0, dataframe$IPAQ_score_moderate <- rowProds(as.matrix(cbind(dataframe[,paste("IPAQ", c(3,4), "1_TEXT", sep = "_")],4)),na.rm =F))
+#calculates the score for walking activity for each individual by multiplying days per week, minutes per day, and MET constant of 3.3; omitted if all of the data is not given
+dataframe$IPAQ_score_walking <- ifelse(dataframe$IPAQ_5==0, dataframe$IPAQ_score_walking  <- 0, dataframe$IPAQ_score_walking <- rowProds(as.matrix(cbind(dataframe[,paste("IPAQ", c(5,6), "1_TEXT", sep = "_")],3.3)), na.rm =F))
+#calculates the final score by summing the vigorous, moderate, and walking activity scores together.
+dataframe$final_score <- rowSums(dataframe[,paste("IPAQ","score",c("vigorous","moderate","walking"),sep='_')],na.rm = FALSE)
+dataframe$final_score
 
