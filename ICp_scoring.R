@@ -1,10 +1,20 @@
 #########################################################################################################################################################
 # Issues Checklist - Parent (ICp) Version scoring
-# Created by (insert RA name(s) here)
+# Created by Aayush Patel
 #########################################################################################################################################################
+#Install necessary packages
+install.packages(matrixStats)
+library(matrixStats)
 
+#Upload data and save it to the object dataframe
+dataframe<-read.csv("/Users/aayushpatel/Desktop/Caregiver_child_Block2_data.csv", header = TRUE)
 ICp <- function(dataframe){
-  #note: insert code to score questionnaire here
-  
+  #Counts the number of issues marked "yes"
+  dataframe$ICp_Issues_Sum <- rowSums(dataframe[,paste("ICp",c(1:21,"Other"),sep="_")], na.rm = FALSE)
+  #Calculates the mean of issues marked "yes"
+  dataframe$ICp_Issues_Mean <- rowMeans(dataframe[,paste("ICp",c(1:21,"Other"),sep="_")], na.rm = TRUE)
+  #For issues marked “yes,” add intensity ratings and divide by the number of issues marked “yes” to obtain mean intensity rating.
+  dataframe$ICp_Mean_Intensity <- rowMeans(dataframe[,paste("ICp",c(1:21,"Other"), "Upset",sep="_")], na.rm = TRUE)
   return(dataframe)
 }
+
