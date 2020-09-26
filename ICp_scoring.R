@@ -7,7 +7,7 @@ install.packages(matrixStats)
 library(matrixStats)
 
 #Upload data and save it to the object dataframe
-dataframe<-read.csv("/Users/aayushpatel/Desktop/Caregiver_child_Block2_data.csv", header = TRUE)
+dataframe<-read.csv()
 ICp <- function(dataframe){
   #Counts the number of issues marked "yes"
   dataframe$ICp_Issues_Sum <- rowSums(dataframe[,paste("ICp",c(1:21,"Other"),sep="_")], na.rm = FALSE)
