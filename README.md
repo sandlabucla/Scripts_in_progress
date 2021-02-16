@@ -5,6 +5,6 @@ completed and checked, they will be added to the main Scripts folder and deleted
 
 The current focus of these scripts are to create questionnaire scoring 
 functions for self-report survey instruments that are widely utilized 
-across studies in the lab.\
+across studies in the lab.
 
 
