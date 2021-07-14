@@ -1,9 +1,9 @@
 #########################################################################################################################################################
-# Glasgow Sensory Questionnaire scoring
+# Childhood Trauma Questionnaire (CTQ) scoring
 # Created by (insert RA name(s) here)
 #########################################################################################################################################################
 
-GSQ <- function(dataframe){
+CTQ <- function(dataframe){
   #note: insert code to score questionnaire here
   return(dataframe)
 }
